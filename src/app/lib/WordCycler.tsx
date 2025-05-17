@@ -5,32 +5,25 @@ import { useState, useEffect } from "react"
 
 interface CyclerProps {
     wordsArray: string[],
-    viewportHeight: number
+    viewportHeight: number,
+    index: number
 }
 
-export default function WordCycler({ wordsArray, viewportHeight }: CyclerProps) {
-    const [index, setIndex] = useState<number>(0)
-
-    useEffect(() => {
-        if (index === wordsArray.length - 1) return; // Stop after last word
-
-        const timeout = setTimeout(() => {
-            setIndex((prev) => (prev + 1) % wordsArray.length);
-        }, 1500); // 1s per word
-
-        return () => clearTimeout(timeout);
-    }, [index]);
+export default function WordCycler({ wordsArray, viewportHeight, index }: CyclerProps) {
 
     return (
         <div className="h-screen flex items-end justify-start">
             <AnimatePresence mode="wait">
                 <motion.p
                     key={`${wordsArray[index]}_inFunc`}
-                    className="text-[300px] font-extrabold tracking-tight"
+                    className="text-[80px] sm:text-[120px] md:text-[160px] lg:text-[200px] xl:text-[280px] font-extrabold tracking-tight"
                     initial={{ y: 400, rotateZ: 5 }}
                     animate={{ y: 0, rotateZ: 0 }}
                     exit={{ y: -1 * viewportHeight, rotateZ: -10 }}
-                    transition={{ duration: .6, ease: "linear" }}
+                    transition={{ 
+                        duration: .7, 
+                        ease: [.66,.04,.55,.82],
+                    }}
                 >
                     {wordsArray[index]}
                 </motion.p>
