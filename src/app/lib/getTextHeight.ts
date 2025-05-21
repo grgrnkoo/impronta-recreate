@@ -1,6 +1,4 @@
-import { useState, useEffect } from 'react';
-
-export function useTextHeight() {
+export function getTextHeight() {
     const width = typeof window !== 'undefined' ? window.innerWidth : 1024;
 
     let newHeight = 80;
